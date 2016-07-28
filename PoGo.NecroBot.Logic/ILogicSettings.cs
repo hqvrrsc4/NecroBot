@@ -1,5 +1,6 @@
 ﻿#region using directives
 
+using System;
 using System.Collections.Generic;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
@@ -10,19 +11,22 @@ namespace PoGo.NecroBot.Logic
 {
     public class TransferFilter
     {
-        public TransferFilter() { }
+        public TransferFilter()
+        {
+        }
 
         public TransferFilter(int keepMinCp, float keepMinIvPercentage, int keepMinDuplicatePokemon)
         {
-            this.KeepMinCp = keepMinCp;
-            this.KeepMinIvPercentage = keepMinIvPercentage;
-            this.KeepMinDuplicatePokemon = keepMinDuplicatePokemon;
+            KeepMinCp = keepMinCp;
+            KeepMinIvPercentage = keepMinIvPercentage;
+            KeepMinDuplicatePokemon = keepMinDuplicatePokemon;
         }
 
         public int KeepMinCp { get; set; }
         public float KeepMinIvPercentage { get; set; }
         public int KeepMinDuplicatePokemon { get; set; }
-    };
+    }
+
     public interface ILogicSettings
     {
         bool AutoUpdate { get; }
@@ -34,6 +38,7 @@ namespace PoGo.NecroBot.Logic
         bool TransferDuplicatePokemon { get; }
         bool UseEggIncubators { get; }
         int DelayBetweenPokemonCatch { get; }
+        int DelayBetweenPlayerActions { get; }
         bool UsePokemonToNotCatchFilter { get; }
         int KeepMinDuplicatePokemon { get; }
         bool PrioritizeIvOverCp { get; }
@@ -44,11 +49,13 @@ namespace PoGo.NecroBot.Logic
         int UseLuckyEggsMinPokemonAmount { get; }
         bool EvolveAllPokemonAboveIv { get; }
         float EvolveAboveIvValue { get; }
+        bool DumpPokemonStats { get; }
         bool RenameAboveIv { get; }
         int AmountOfPokemonToDisplayOnStart { get; }
         string TranslationLanguageCode { get; }
         string ProfilePath { get; }
-        string ConfigPath { get; }
+        string ProfileConfigPath { get; }
+        string GeneralConfigPath { get; }
 
         ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter { get; }
 
@@ -59,5 +66,7 @@ namespace PoGo.NecroBot.Logic
         ICollection<PokemonId> PokemonsNotToCatch { get; }
 
         Dictionary<PokemonId, TransferFilter> PokemonsTransferFilter { get; }
+
+        bool StartupWelcomeDelay { get; }
     }
 }
